@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saril Chauhan | 3D Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="env-container">
+        <div class="cyber-grid"></div>
+        <div class="vignette"></div>
+    </div>
+
+    <div id="canvas-container"></div>
+    <div id="css-container"></div>
+
+    <div id="flat-container">
+        <iframe src="portfolio.html" frameborder="0"></iframe>
+    </div>
+
+    <div id="ui-layer">
+        
+        <nav class="main-nav">
+            <div class="logo">SARIL<span class="dot">.</span>Portfolio</div>
+            <div class="socials">
+                <a href="https://github.com/alphacrush" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/saril-chauhan-4b19352ba/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:sarilchauhan1@gmail.com"><i class="fas fa-envelope"></i></a>
+            </div>
+        </nav>
+
+        <div class="hero-content">
+            <div class="line"></div>
+            <h3>SARIL CHAUHAN // </h3>
+            <h1>INTERACTIVE <br> <span class="highlight">CONSOLE</span></h1>
+            <p>Welcome to my 3D digital workspace. <br> Interact with the device to explore my projects.</p>
+        </div>
+
+        <div class="controls-hint">
+            <div class="hint-item">
+                <i class="fas fa-mouse-pointer"></i>
+                <span>DRAG TO ROTATE</span>
+            </div>
+            <div class="hint-item">
+                <i class="fas fa-hand-point-up"></i>
+                <span>CLICK BUTTONS</span>
+            </div>
+
+            <div class="copyright">
+              &copy;SARIL CHAUHAN. All rights reserved.
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="dimension-switch">
+        <i class="fas fa-cube label-icon"></i>
+        
+        <label class="switch">
+            <input type="checkbox" id="view-toggle" onchange="toggleDimensions()">
+            <span class="slider"></span>
+        </label>
+        
+        <i class="fas fa-file-alt label-icon"></i>
+    </div>
+
+    <script>
+        function toggleDimensions() {
+            const body = document.body;
+            const checkbox = document.getElementById('view-toggle');
+
+            if (checkbox.checked) {
+                body.classList.add('flat-mode');
+            } else {
+                body.classList.remove('flat-mode');
+            }
+        }
+    </script>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>

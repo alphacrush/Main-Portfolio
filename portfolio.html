@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theme T18: Ultra Smooth</title>
+    <link rel="stylesheet" href="portfolio.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="screen-overlay"></div>
+
+    <div class="os-container">
+        
+        <header>
+            <div class="brand">
+                <i class="fas fa-terminal"></i> SYSTEM_V01
+            </div>
+            
+            <div class="hud-nav">
+                <span class="status-light">ONLINE</span>
+                <span class="status-light">SECURE</span>
+            </div>
+        </header>
+
+        <main class="scroll-content" id="main-scroll" tabindex="0">
+
+            <section class="content-block">
+                <div class="hero">
+                    <div class="hex-avatar">
+                        <img src="https://api.dicebear.com/9.x/bottts-neutral/svg?seed=George" alt="Avatar">
+                    </div>
+                    <h1>SARIL CHAUHAN</h1>
+                    <div class="badge">FULL STACK DEVELOPER</div>
+                </div>
+
+                <div class="stats-row">
+                    <div class="stat"><b>02+</b><span>YEARS</span></div>
+                    <div class="stat-line"></div>
+                    <div class="stat"><b>4</b><span>PROJECTS</span></div>
+                    <div class="stat-line"></div>
+                    <div class="stat"><b>100%</b><span>UPTIME</span></div>
+                </div>
+            </section>
+
+            <div class="spacer"></div>
+
+            <section class="content-block">
+                <div class="section-header">:: OPERATOR_DATA ::</div>
+                <div class="card">
+                    <h3><i class="fas fa-graduation-cap"></i> EDUCATION</h3>
+                    <div class="timeline">
+                        <span class="time">2023 - Present</span>
+                        <h4>Jabalpur Engineering College</h4>
+                        <p>B.Tech (Electronics & Comm) - 5th Sem</p>
+                    </div>
+                </div>
+
+                <div class="section-header">:: SKILL_MATRIX ::</div>
+                <div class="skills-grid">
+                    <div class="skill-item">HTML/CSS <div class="track"><div class="bar" style="width:95%"></div></div></div>
+                    <div class="skill-item">JavaScript <div class="track"><div class="bar" style="width:85%"></div></div></div>
+                    <div class="skill-item">React <div class="track"><div class="bar" style="width:75%"></div></div></div>
+                    <div class="skill-item">Python <div class="track"><div class="bar" style="width:70%"></div></div></div>
+                </div>
+            </section>
+
+            <div class="spacer"></div>
+
+            <section class="content-block">
+                <div class="section-header">:: MISSION_LOG ::</div>
+                <div class="project-list">
+                    <div class="p-card">
+                        <div class="p-head"><i class="fas fa-tshirt"></i> LAUNDRY_SVC</div>
+                        <p>Full-stack management solution.</p>
+                        <div class="tags"><span>REACT</span><span>NODE</span></div>
+                    </div>
+                    <div class="p-card">
+                        <div class="p-head"><i class="fas fa-shield-alt"></i> CONTENT_MOD</div>
+                        <p>Automated AI content filter.</p>
+                        <div class="tags"><span>PYTHON</span><span>AI</span></div>
+                    </div>
+                    <div class="p-card">
+                        <div class="p-head"><i class="fas fa-heartbeat"></i> FITNESS_TRK</div>
+                        <p>Health analytics dashboard.</p>
+                        <div class="tags"><span>JS</span><span>API</span></div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="spacer"></div>
+
+            <section class="content-block">
+                <div class="section-header">:: SECURE_UPLINK ::</div>
+                <div class="links-col">
+                    <a href="mailto:sarilchauhan1@gmail.com" class="link-btn"><i class="fas fa-envelope"></i> EMAIL</a>
+                    <a href="https://github.com/alphacrush" class="link-btn"><i class="fab fa-github"></i> GITHUB</a>
+                    <a href="https://www.linkedin.com/in/saril-chauhan-4b19352ba/" class="link-btn"><i class="fab fa-linkedin"></i> LINKEDIN</a>
+                </div>
+            </section>
+
+            <div class="spacer"></div>
+
+        </main>
+
+        <footer>
+            <span>ID: DEV_01</span>
+            <span>[▼] SMOOTH-SCROLL ACTIVE</span>
+        </footer>
+
+    </div>
+
+    <script>
+        // 1. Force Focus on Load (Essential for Console Inputs)
+        window.onload = function() {
+            const scroller = document.getElementById('main-scroll');
+            if(scroller) scroller.focus();
+        };
+
+        // 2. Refocus if user clicks background
+        document.addEventListener('click', function(e) {
+            if(e.target.tagName !== 'A' && e.target.tagName !== 'INPUT') {
+                document.getElementById('main-scroll').focus();
+            }
+        });
+
+        // 3. SMOOTH SCROLL LOGIC
+        document.addEventListener('keydown', function(e) {
+            const scroller = document.getElementById('main-scroll');
+            
+            // Adjust this for faster/slower scrolling
+            const scrollDistance = 100; 
+
+            if (e.key === "ArrowDown" || e.key === "s") {
+                // Use built-in smooth behavior
+                scroller.scrollBy({
+                    top: scrollDistance,
+                    behavior: 'smooth'
+                });
+            } 
+            else if (e.key === "ArrowUp" || e.key === "w") {
+                scroller.scrollBy({
+                    top: -scrollDistance,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    </script>
+</body>
+</html>
