@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Debug Environment (Unpkg)</title>
+    <style>
+        body {
+            background: #111;
+            color: #eee;
+            font-family: monospace;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Diagnostics (Round 2)</h1>
+    <div id="log"></div>
+
+    <script>
+        const log = (msg, color = 'white') => {
+            const div = document.createElement('div');
+            div.textContent = msg;
+            div.style.color = color;
+            document.getElementById('log').appendChild(div);
+        };
+
+        async function runTests() {
+            log("Testing UNPKG Connection...", "yellow");
+
+            // 1. Check Three.js from UNPKG
+            try {
+                log("Attempting to load Three.js from UNPKG...");
+                const three = await import('https://unpkg.com/three@0.129.0/build/three.module.js');
+                log("✅ Three.js (Unpkg) loaded!", "lightgreen");
+            } catch (e) {
+                log("❌ Three.js (Unpkg) FAILED.", "red");
+                log(e.toString(), "red");
+            }
+
+            // 2. Check GLTFLoader from UNPKG
+            try {
+                log("Attempting to load GLTFLoader from UNPKG...");
+                const loader = await import('https://unpkg.com/three@0.129.0/examples/jsm/loaders/GLTFLoader.js');
+                log("✅ GLTFLoader (Unpkg) loaded!", "lightgreen");
+            } catch (e) {
+                log("❌ GLTFLoader (Unpkg) FAILED.", "red");
+                log("Note: This often fails if dependencies can't resolve.", "orange");
+                log(e.toString(), "red");
+            }
+
+            // 3. Check Model
+            try {
+                log("Checking local model file...");
+                const response = await fetch('game_console.glb', { method: 'HEAD' });
+                if (response.ok) {
+                    log("✅ game_console.glb found.", "lightgreen");
+                } else {
+                    log("❌ game_console.glb MISSING (HTTP " + response.status + ")", "red");
+                }
+            } catch (e) {
+                log("❌ Error checking model: " + e.message, "red");
+            }
+        }
+
+        runTests();
+    </script>
+</body>
+
+</html>

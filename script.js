@@ -1,29 +1,29 @@
-import * as THREE from 'https://cdn.skypack.dev/three@0.129.0/build/three.module.js';
-import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/GLTFLoader.js';
-import { OrbitControls } from 'https://cdn.skypack.dev/three@0.129.0/examples/jsm/controls/OrbitControls.js';
-import { CSS3DRenderer, CSS3DObject } from 'https://cdn.skypack.dev/three@0.129.0/examples/jsm/renderers/CSS3DRenderer.js';
-import { EffectComposer } from 'https://cdn.skypack.dev/three@0.129.0/examples/jsm/postprocessing/EffectComposer.js';
-import { RenderPass } from 'https://cdn.skypack.dev/three@0.129.0/examples/jsm/postprocessing/RenderPass.js';
-import { UnrealBloomPass } from 'https://cdn.skypack.dev/three@0.129.0/examples/jsm/postprocessing/UnrealBloomPass.js';
+import * as THREE from 'three';
+import { GLTFLoader } from './libs/jsm/loaders/GLTFLoader.js';
+import { OrbitControls } from './libs/jsm/controls/OrbitControls.js';
+import { CSS3DRenderer, CSS3DObject } from './libs/jsm/renderers/CSS3DRenderer.js';
+import { EffectComposer } from './libs/jsm/postprocessing/EffectComposer.js';
+import { RenderPass } from './libs/jsm/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from './libs/jsm/postprocessing/UnrealBloomPass.js';
 
 // --- CALIBRATION ---
-const WEB_WIDTH = '500px';   
+const WEB_WIDTH = '500px';
 const WEB_HEIGHT = '297px';
-const SCREEN_SCALE = 0.008; 
-const SCREEN_X = 0;          
-const SCREEN_Y = 0;          
-const SCREEN_Z = 0.21;       
-const ROTATION_X = -18.9;        
-const ROTATION_Y = 0;        
-const ROTATION_Z = 0;        
-const BG_COLOR = 'transparent';      
+const SCREEN_SCALE = 0.008;
+const SCREEN_X = 0;
+const SCREEN_Y = 0;
+const SCREEN_Z = 0.21;
+const ROTATION_X = -18.9;
+const ROTATION_Y = 0;
+const ROTATION_Z = 0;
+const BG_COLOR = 'transparent';
 
 // 1. SCENE
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
 // Camera Position (Kept your value)
-camera.position.set(0, 0, 4); 
+camera.position.set(0, 0, 4);
 
 // 2. WEBGL RENDERER
 const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
@@ -38,15 +38,15 @@ const labelRenderer = new CSS3DRenderer();
 labelRenderer.setSize(window.innerWidth, window.innerHeight);
 labelRenderer.domElement.style.position = 'absolute';
 labelRenderer.domElement.style.top = '0';
-labelRenderer.domElement.style.pointerEvents = 'none'; 
+labelRenderer.domElement.style.pointerEvents = 'none';
 document.getElementById('css-container').appendChild(labelRenderer.domElement);
 
 // 4. BLOOM (GLOW EFFECT)
 const renderScene = new RenderPass(scene, camera);
 const bloomPass = new UnrealBloomPass(
-    new THREE.Vector2(window.innerWidth, window.innerHeight), 
-    1.5,  
-    0.4, 
+    new THREE.Vector2(window.innerWidth, window.innerHeight),
+    1.5,
+    0.4,
     0.85
 );
 const composer = new EffectComposer(renderer);
@@ -65,21 +65,21 @@ controls.enablePan = false;           // Keep console centered
 
 // ZOOM LIMITS
 controls.minDistance = 3.0;           // Allow getting closer
-controls.maxDistance = 8.0;           
+controls.maxDistance = 8.0;
 
 // VERTICAL LIMITS (Up/Down) - RELAXED
 // 0.1 = Almost top-down view
 // Math.PI / 2 = Floor level (Horizontal)
-controls.minPolarAngle = 0.2;         
+controls.minPolarAngle = 0.2;
 controls.maxPolarAngle = Math.PI / 2 - 0.05; // Stop just before hitting floor
 
 // HORIZONTAL LIMITS (Left/Right) - RELAXED
 // Math.PI / 1.2 = Allows rotating almost to the back
-controls.minAzimuthAngle = -Math.PI / 1.8; 
+controls.minAzimuthAngle = -Math.PI / 1.8;
 controls.maxAzimuthAngle = Math.PI / 1.8;
 
 // 6. LIGHTS
-const ambientLight = new THREE.AmbientLight(0x404060, 1.5); 
+const ambientLight = new THREE.AmbientLight(0x404060, 1.5);
 scene.add(ambientLight);
 
 const keyLight = new THREE.DirectionalLight(0xffffff, 2);
@@ -96,7 +96,7 @@ const consoleGroup = new THREE.Group();
 scene.add(consoleGroup);
 
 const screenLight = new THREE.PointLight(0xffffff, 0.5, 2);
-screenLight.position.set(SCREEN_X, SCREEN_Y, SCREEN_Z + 0.2); 
+screenLight.position.set(SCREEN_X, SCREEN_Y, SCREEN_Z + 0.2);
 consoleGroup.add(screenLight);
 
 // 8. LOAD MODEL
@@ -118,12 +118,12 @@ loader.load('game_console.glb', (gltf) => {
                 const brightness = color.r + color.g + color.b;
 
                 if (brightness > 2.0) {
-                    node.material.emissive = new THREE.Color(0xffffff); 
-                    node.material.emissiveIntensity = 3.0; 
-                    node.material.toneMapped = false; 
-                } 
+                    node.material.emissive = new THREE.Color(0xffffff);
+                    node.material.emissiveIntensity = 3.0;
+                    node.material.toneMapped = false;
+                }
                 else {
-                    node.material.emissive = new THREE.Color(0x000000); 
+                    node.material.emissive = new THREE.Color(0x000000);
                     node.material.emissiveIntensity = 0;
                 }
             }
@@ -143,7 +143,7 @@ div.style.width = WEB_WIDTH;
 div.style.height = WEB_HEIGHT;
 div.style.backgroundColor = BG_COLOR;
 
-div.style.pointerEvents = 'auto'; 
+div.style.pointerEvents = 'auto';
 // Stop rotation when hovering the screen
 div.addEventListener('mouseenter', () => { controls.enabled = false; });
 div.addEventListener('mouseleave', () => { controls.enabled = true; });
@@ -153,7 +153,7 @@ iframe.src = 'portfolio.html';
 iframe.style.width = '100%';
 iframe.style.height = '100%';
 iframe.style.border = '0';
-iframe.style.pointerEvents = 'auto'; 
+iframe.style.pointerEvents = 'auto';
 div.appendChild(iframe);
 
 const object3D = new CSS3DObject(div);
@@ -186,7 +186,7 @@ function animate() {
     // Gently rotates the console based on mouse position
     const targetX = mouse.y * 0.1; // Vertical tilt amount
     const targetY = mouse.x * 0.1; // Horizontal tilt amount
-    
+
     // Smoothly interpolate current rotation to target (0.05 = smoothing speed)
     consoleGroup.rotation.x += 0.05 * (targetX - consoleGroup.rotation.x);
     consoleGroup.rotation.y += 0.05 * (targetY - consoleGroup.rotation.y);
@@ -198,7 +198,7 @@ function animate() {
     camera.getWorldDirection(cameraDirection);
     const dotProduct = screenDirection.dot(cameraDirection);
 
-    if (dotProduct < -0.1) { 
+    if (dotProduct < -0.1) {
         div.style.opacity = 1;
     } else {
         div.style.opacity = 0;
@@ -237,8 +237,8 @@ window.addEventListener('click', (event) => {
         for (let i = 0; i < intersects.length; i++) {
             const name = intersects[i].object.name;
             if (name.includes("Button") || name.includes("D_Pad") || name.includes("Circle")) {
-                buttonHit = intersects[i]; 
-                break; 
+                buttonHit = intersects[i];
+                break;
             }
         }
 
@@ -250,9 +250,9 @@ window.addEventListener('click', (event) => {
 
 function handleSmartClick(hit) {
     const name = hit.object.name;
-    const web = iframe.contentWindow; 
+    const web = iframe.contentWindow;
     const doc = iframe.contentWindow.document;
-    
+
     // Updated selector for T10 Structure
     const scrollBox = doc.getElementById('main-scroll') || doc.querySelector('.scroll-content') || web.document.body;
 
@@ -260,11 +260,11 @@ function handleSmartClick(hit) {
 
     if (name.includes("D_Pad")) {
         const localPoint = hit.object.worldToLocal(hit.point.clone());
-        const sensitivity = 0.005; 
+        const sensitivity = 0.005;
 
         if (localPoint.y > sensitivity) {
             scrollBox.scrollBy({ top: -100, behavior: 'smooth' }); // Scroll Up
-        } 
+        }
         else if (localPoint.y < -sensitivity) {
             scrollBox.scrollBy({ top: 100, behavior: 'smooth' }); // Scroll Down
         }
@@ -288,7 +288,7 @@ function handleSmartClick(hit) {
 // ==========================================
 // 🔀 2D/3D SWITCHER LOGIC (Keep this exposed)
 // ==========================================
-window.toggleDimensions = function() {
+window.toggleDimensions = function () {
     const body = document.body;
     const icon = document.getElementById('toggle-icon');
     const text = document.getElementById('toggle-text');
@@ -297,13 +297,13 @@ window.toggleDimensions = function() {
 
     if (body.classList.contains('flat-mode')) {
         // Switch to 2D Mode
-        if(icon) icon.className = 'fas fa-cube';
-        if(text) text.innerText = "RETURN TO 3D";
+        if (icon) icon.className = 'fas fa-cube';
+        if (text) text.innerText = "RETURN TO 3D";
         controls.enabled = false; // Disable 3D Controls
     } else {
         // Switch to 3D Mode
-        if(icon) icon.className = 'fas fa-expand';
-        if(text) text.innerText = "SWITCH TO 2D";
+        if (icon) icon.className = 'fas fa-expand';
+        if (text) text.innerText = "SWITCH TO 2D";
         controls.enabled = true; // Enable 3D Controls
     }
 }
